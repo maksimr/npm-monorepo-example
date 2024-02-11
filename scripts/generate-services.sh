@@ -68,7 +68,7 @@ COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm ci
 
 COPY --from=builder /app/out/full/ .
-RUN npm run build --if-present
+RUN npm run build --workspaces --if-present
 
 RUN npm prune --production
 
