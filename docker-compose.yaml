@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  foo1:
+    container_name: foo1
+    build:
+      context: .
+      dockerfile: ./services/foo-1/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
