@@ -3,11 +3,12 @@
 for i in {1..3}; do
 SCOPE=services
 WORKSPACE=foo-$i
+PACKAGE_NAME=@$SCOPE/$WORKSPACE
 
 mkdir -p $SCOPE/$WORKSPACE;
 pushd $SCOPE/$WORKSPACE;
 
-npm init -y;
+npm init -y --scope=$SCOPE;
 
 cat > tsconfig.json <<EOF
 {
@@ -55,7 +56,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 COPY . .
-RUN npx -y turbo prune $WORKSPACE --docker
+RUN npx -y turbo prune $PACKAGE_NAME --docker
 
 FROM base AS installer
 RUN apk add --no-cache libc6-compat
@@ -81,13 +82,8 @@ COPY --from=installer /app .
 CMD node $SCOPE/$WORKSPACE/dist/index.js
 EOF
 
-cat > .dockerignore <<EOF
-node_modules
-npm-debug.log
-EOF
-
 popd;
 
-npm install --save-dev typescript @types/node -w $WORKSPACE;
+npm install --save-dev typescript @types/node -w $PACKAGE_NAME;
 
 done
