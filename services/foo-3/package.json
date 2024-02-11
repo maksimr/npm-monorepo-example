@@ -1,7 +1,6 @@
 {
-  "name": "foo-3",
+  "name": "@services/foo-3",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
@@ -9,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "typescript": "^5.3.3"
+  }
 }

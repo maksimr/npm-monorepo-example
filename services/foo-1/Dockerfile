@@ -6,7 +6,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 COPY . .
-RUN npx -y turbo prune foo-1 --docker
+RUN npx -y turbo prune @services/foo-1 --docker
 
 FROM base AS installer
 RUN apk add --no-cache libc6-compat
@@ -19,6 +19,8 @@ RUN npm ci
 
 COPY --from=builder /app/out/full/ .
 RUN npm run build --if-present
+
+RUN npm prune --production
 
 FROM base AS runner
 WORKDIR /app
