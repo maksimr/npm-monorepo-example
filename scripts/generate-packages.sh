@@ -17,7 +17,7 @@ cat > tsconfig.json <<EOF
     "moduleResolution": "node",
     "sourceMap": true,
     "pretty": true,
-    "outDir": "dist",
+    "outDir": "dist/src",
     "strict": false,
     "esModuleInterop": true
   },
@@ -38,8 +38,14 @@ node <<EOF
   require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
 EOF
 
+node <<EOF
+  const pkg = require('./package.json');
+  pkg.exports = { './*': './dist/*.js' };
+  require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+EOF
+
 popd;
 
-npm install --save-dev typescript @types/node -w $WORKSPACE;
+npm install --save-dev typescript @types/node -w @$SCOPE/$WORKSPACE;
 
 done

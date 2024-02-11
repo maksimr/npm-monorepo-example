@@ -1,12 +1,19 @@
 {
   "name": "@packages/foo-2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "exports": {
+    "./*": "./dist/*.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "typescript": "^5.3.3"
+  },
+  "description": ""
 }
