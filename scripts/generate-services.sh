@@ -69,6 +69,8 @@ RUN npm ci
 COPY --from=builder /app/out/full/ .
 RUN npm run build --if-present
 
+RUN npm prune --production
+
 FROM base AS runner
 WORKDIR /app
 
@@ -77,6 +79,11 @@ RUN adduser --system --uid 1001 app
 USER app
 COPY --from=installer /app .
 CMD node $SCOPE/$WORKSPACE/dist/index.js
+EOF
+
+cat > .dockerignore <<EOF
+node_modules
+npm-debug.log
 EOF
 
 popd;
