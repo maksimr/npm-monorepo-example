@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "npx dprun build $npm_package_name && tsc && node dist/index.js",
     "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@packages/scripts": "^1.0.0",
     "@types/node": "^20.11.17",
     "typescript": "^5.3.3"
   },

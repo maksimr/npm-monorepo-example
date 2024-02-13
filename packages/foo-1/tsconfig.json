@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "es2021",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "pretty": true,
-    "outDir": "dist/src",
+    "outDir": "dist",
     "strict": false,
     "esModuleInterop": true
   },
