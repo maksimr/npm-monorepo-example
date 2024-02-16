@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx dprun build $npm_package_name && tsc && node dist/index.js",
+    "start": "npx scripts build -w $npm_package_name && node --watch dist/index.js",
     "build": "tsc"
   },
   "keywords": [],

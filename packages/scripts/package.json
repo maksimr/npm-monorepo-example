@@ -2,7 +2,7 @@
   "name": "@packages/scripts",
   "version": "1.0.0",
   "bin": {
-    "dprun": "./bin/dprun.sh"
+    "scripts": "./bin/scripts.sh"
   },
   "private": true
 }
