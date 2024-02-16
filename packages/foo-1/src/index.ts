@@ -1,3 +1,7 @@
-import '@packages/foo-2/src/index';
+import { foo2 } from '@packages/foo-2/src/index';
 
-console.log('foo-1:', 'Hello, world!');
+foo2();
+
+export function foo1() {
+  console.log('foo-1:', 'Hello, world!', new Date());
+}
