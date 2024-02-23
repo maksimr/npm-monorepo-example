@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npx scripts-npm-run build -w $npm_package_name && node --watch dist/index.js",
-    "build": "tsc"
+    "build:all": "npx scripts-npm-run build -w $npm_package_name",
+    "build": "tsc",
+    "prestart": "npm run build:all",
+    "start": "node --watch dist/index.js",
+    "pretest": "npm run build:all",
+    "test": "node --test **/*.test.js"
   },
   "keywords": [],
   "author": "",
