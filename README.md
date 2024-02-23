@@ -52,6 +52,8 @@ npm run build:all -w <package-name> --if-present -- --watch
 
 ## Deploy locally
 
+### Docker
+
 To deploy the service, you can use the following command:
 
 ```bash
@@ -62,6 +64,20 @@ To stop the service, you can use the following command:
 
 ```bash
 docker compose down
+```
+
+### Kubernetes
+
+To deploy all services, you can use the following command:
+
+```bash
+./scripts/minikube/deploy.sh
+```
+
+To deploy specific services, you can use the following command:
+
+```bash
+./scripts/minikube/deploy.sh <service-name> <service-name> ...
 ```
 
 ## Test
