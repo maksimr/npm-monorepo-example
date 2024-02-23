@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:all": "npx scripts-npm-run build -w $npm_package_name",
+    "build:all": "npx scripts-npm-run build -w $npm_package_name --",
     "build": "tsc",
     "dev": "npm run start",
     "prestart": "npm run build:all",

@@ -8,4 +8,20 @@ services:
       dockerfile: ./services/foo-1/Dockerfile
     restart: always
     ports:
-      - 3000:3000
+      - 3001:3000
+  foo2:
+    container_name: foo2
+    build:
+      context: .
+      dockerfile: ./services/foo-2/Dockerfile
+    restart: always
+    ports:
+      - 3002:3000
+  foo3:
+    container_name: foo3
+    build:
+      context: .
+      dockerfile: ./services/foo-3/Dockerfile
+    restart: always
+    ports:
+      - 3003:3000

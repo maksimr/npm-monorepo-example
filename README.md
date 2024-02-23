@@ -1,0 +1,73 @@
+# npm monorepo template
+
+This is a template for a monorepo using NPM workspaces, Docker and TypeScript. This describes how to build, develop, deploy and test the nodejs services
+
+## Build
+
+Before building the project, you need to install the dependencies. You can do this by running the following command:
+
+```bash
+npm ci
+```
+
+To build specific packages, you can use the following command:
+
+```bash
+npm run build -w <package-name> --if-present
+```
+
+If you want to build specific packages and their dependencies, you can use the following command:
+
+```bash
+npm run build:all -w <package-name> --if-present
+```
+
+If you want to build all packages, you can use the following command:
+
+```bash
+npm run build --workspaces --if-present
+```
+
+## Development
+
+To run the service, you can use the following command:
+
+```bash
+npm run dev -w <package-name> --if-present
+```
+
+If you want to rebuild a service when a service's files change,
+you can use the following after running the `dev` command:
+
+```bash
+npm run build -w <package-name> --if-present -- --watch
+```
+
+If you want to rebuild a service including its dependencies on a change,
+you can use the following after running the `dev` command:
+
+```bash
+npm run build:all -w <package-name> --if-present -- --watch
+```
+
+## Deploy locally
+
+To deploy the service, you can use the following command:
+
+```bash
+docker compose up foo1 --force-recreate --build
+```
+
+To stop the service, you can use the following command:
+
+```bash
+docker compose down
+```
+
+## Test
+
+To run the all tests, you can use the following command:
+
+```bash
+npm run test:all -w <package-name> --if-present
+```
