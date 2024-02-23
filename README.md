@@ -13,13 +13,13 @@ npm ci
 To build specific packages, you can use the following command:
 
 ```bash
-npm run build -w <package-name> --if-present
+npm run build -w <package-name>
 ```
 
 If you want to build specific packages and their dependencies, you can use the following command:
 
 ```bash
-npm run build:all -w <package-name> --if-present
+npm run build:all -w <package-name>
 ```
 
 If you want to build all packages, you can use the following command:
@@ -33,21 +33,21 @@ npm run build --workspaces --if-present
 To run the service, you can use the following command:
 
 ```bash
-npm run dev -w <package-name> --if-present
+npm run dev -w <package-name>
 ```
 
 If you want to rebuild a service when a service's files change,
 you can use the following after running the `dev` command:
 
 ```bash
-npm run build -w <package-name> --if-present -- --watch
+npm run build -w <package-name> -- --watch
 ```
 
 If you want to rebuild a service including its dependencies on a change,
 you can use the following after running the `dev` command:
 
 ```bash
-npm run build:all -w <package-name> --if-present -- --watch
+npm run build:all -w <package-name> -- --watch
 ```
 
 ## 🚀 Deployment
@@ -85,5 +85,5 @@ To deploy specific services, you can use the following command:
 To run the all tests, you can use the following command:
 
 ```bash
-npm run test:all -w <package-name> --if-present
+npm run test:all -w <package-name>
 ```
