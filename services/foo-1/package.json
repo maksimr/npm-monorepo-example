@@ -5,6 +5,7 @@
   "scripts": {
     "build:all": "npx scripts-npm-run build -w $npm_package_name",
     "build": "tsc",
+    "dev": "npm run start",
     "prestart": "npm run build:all",
     "start": "node --watch dist/index.js",
     "pretest": "npm run build:all",
