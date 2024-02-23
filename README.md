@@ -50,7 +50,7 @@ you can use the following after running the `dev` command:
 npm run build:all -w <package-name> --if-present -- --watch
 ```
 
-## Deploy locally
+## Deployment
 
 ### Docker
 
