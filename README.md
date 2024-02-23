@@ -2,7 +2,7 @@
 
 This is a template for a monorepo using NPM workspaces, Docker and TypeScript. This describes how to build, develop, deploy and test the nodejs services
 
-## Build
+## 🏗️ Build
 
 Before building the project, you need to install the dependencies. You can do this by running the following command:
 
@@ -28,7 +28,7 @@ If you want to build all packages, you can use the following command:
 npm run build --workspaces --if-present
 ```
 
-## Development
+## 🖥️ Development
 
 To run the service, you can use the following command:
 
@@ -50,9 +50,9 @@ you can use the following after running the `dev` command:
 npm run build:all -w <package-name> --if-present -- --watch
 ```
 
-## Deployment
+## 🚀 Deployment
 
-### Docker
+### 🐳 Docker
 
 To deploy the service, you can use the following command:
 
@@ -66,7 +66,7 @@ To stop the service, you can use the following command:
 docker compose down
 ```
 
-### Kubernetes
+### ☸️ Kubernetes
 
 To deploy all services, you can use the following command:
 
@@ -80,7 +80,7 @@ To deploy specific services, you can use the following command:
 ./scripts/minikube/deploy.sh <service-name> <service-name> ...
 ```
 
-## Test
+## 🧪 Test
 
 To run the all tests, you can use the following command:
 
