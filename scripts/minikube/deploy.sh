@@ -22,6 +22,9 @@ else
   SERVICES=$(find "$SERVICES_ROOT_DIR" -type f -name deployment.yaml -print0 | xargs -0 -n1 dirname)
 fi
 
+PROJECT_NAME=$(node -e "console.log(require('$PROJECT_ROOT_DIR/package.json').name)")
+SERVICE_NAMESPACE="$PROJECT_NAME"
+
 deploy_service() {
   SERVICE_DIR="$1"
   SERVICE_DIR=$(echo "$SERVICE_DIR" | sed 's:/*$::')
@@ -44,14 +47,13 @@ deploy_service() {
 
   minikube image load "$SERVICE_DOCKER_IMAGE"
 
-  SERVICE_NAMESPACE="$SERVICE_NAME"
-  kubectl get namespace "$SERVICE_NAMESPACE" || kubectl create namespace "$SERVICE_NAMESPACE"
-
   SERVICE_DEPLOYMENT_FILE="$SERVICE_DIR/deployment.yaml"
+  kubectl delete -f "$SERVICE_DEPLOYMENT_FILE" --namespace="$SERVICE_NAMESPACE" 2>/dev/null || true
   kubectl apply -f "$SERVICE_DEPLOYMENT_FILE" --namespace="$SERVICE_NAMESPACE"
 }
 
 minikube status || minikube start
+kubectl get namespace "$SERVICE_NAMESPACE" 2>/dev/null || kubectl create namespace "$SERVICE_NAMESPACE"
 
 # Deploy each service in parallel.
 for SERVICE_DIR in $SERVICES
@@ -63,7 +65,42 @@ done
 # Wait for all deployments to finish.
 wait
 
+SERVICES_EXTERNAL=""
+for SERVICE_DIR in $SERVICES
+do
+  SERVICE_NAME=$(basename "$SERVICE_DIR")
+  SERVICE_EXTERNAL_PORT=${SERVICE_EXTERNAL_PORT:-3000}
+  SERVICE_EXTERNAL_PORT=$((SERVICE_EXTERNAL_PORT+1))
+  SERVICES_EXTERNAL="$SERVICES_EXTERNAL $SERVICE_NAME:$SERVICE_EXTERNAL_PORT"
+done
+
+cat <<EOF | kubectl apply --namespace="$SERVICE_NAMESPACE" -f -
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-loadbalancer
+spec:
+  type: LoadBalancer
+  ports:
+$(for SERVICE in $SERVICES_EXTERNAL; do
+  SERVICE_NAME=$(echo "$SERVICE" | cut -d: -f1)
+  SERVICE_EXTERNAL_PORT=$(echo "$SERVICE" | cut -d: -f2)
+  echo "  - name: $SERVICE_NAME"
+  echo "    port:  $SERVICE_EXTERNAL_PORT"
+  echo "    targetPort: $SERVICE_NAME-port"
+done)
+  selector:
+    loadbalancer-type: external
+EOF
+
 echo ""
-echo "To access the service, run the following command:"
-echo "minikube service <SERVICE_NAME>-service --url -n <SERVICE_NAME>"
+echo "Services:"
+for SERVICE in $SERVICES_EXTERNAL
+do
+  SERVICE_NAME=$(echo "$SERVICE" | cut -d: -f1)
+  SERVICE_EXTERNAL_PORT=$(echo "$SERVICE" | cut -d: -f2)
+  echo "  $SERVICE_NAME: http://127.0.0.1:$SERVICE_EXTERNAL_PORT"
+done
 echo ""
+echo "To access the services, run command:"
+echo "  minikube tunnel"
