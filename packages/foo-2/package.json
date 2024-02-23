@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test:types": "tsc --noEmit",
+    "test:all": "npm run test:types"
   },
   "keywords": [],
   "author": "",

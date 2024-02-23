@@ -16,4 +16,4 @@ jobs:
       - name: Run tests
         run: |
           npm ci
-          npm run test --workspaces --if-present
+          npm run test:all --workspaces --if-present

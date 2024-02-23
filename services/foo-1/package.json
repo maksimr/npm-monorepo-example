@@ -8,7 +8,9 @@
     "prestart": "npm run build:all",
     "start": "node --watch dist/index.js",
     "pretest": "npm run build:all",
-    "test": "node --test **/*.test.js"
+    "test": "node --test **/*.test.js",
+    "test:types": "tsc --noEmit",
+    "test:all": "npm run test:types && npm run test"
   },
   "keywords": [],
   "author": "",
