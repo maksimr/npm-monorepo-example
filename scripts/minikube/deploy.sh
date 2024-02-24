@@ -42,13 +42,13 @@ deploy_service() {
     exit 1
   fi
 
-  SERVICE_DOCKER_IMAGE="$SERVICE_NAME"
-  docker build -t "$SERVICE_DOCKER_IMAGE" -f "$SERVICE_DOCKER_FILE" .
-
-  minikube image load "$SERVICE_DOCKER_IMAGE"
-
   SERVICE_DEPLOYMENT_FILE="$SERVICE_DIR/deployment.yaml"
   kubectl delete -f "$SERVICE_DEPLOYMENT_FILE" --namespace="$SERVICE_NAMESPACE" 2>/dev/null || true
+
+  SERVICE_DOCKER_IMAGE="$SERVICE_NAME"
+  docker build -t "$SERVICE_DOCKER_IMAGE" -f "$SERVICE_DOCKER_FILE" "$PROJECT_ROOT_DIR"
+  minikube image load "$SERVICE_DOCKER_IMAGE"
+
   kubectl apply -f "$SERVICE_DEPLOYMENT_FILE" --namespace="$SERVICE_NAMESPACE"
 }
 
@@ -99,7 +99,9 @@ for SERVICE in $SERVICES_EXTERNAL
 do
   SERVICE_NAME=$(echo "$SERVICE" | cut -d: -f1)
   SERVICE_EXTERNAL_PORT=$(echo "$SERVICE" | cut -d: -f2)
-  echo "  $SERVICE_NAME: http://127.0.0.1:$SERVICE_EXTERNAL_PORT"
+  echo "  $SERVICE_NAME:"
+  echo "    http://127.0.0.1:$SERVICE_EXTERNAL_PORT"
+  echo "    http://$SERVICE_NAME.$SERVICE_NAMESPACE.svc.cluster.local"
 done
 echo ""
 echo "To access the services, run command:"

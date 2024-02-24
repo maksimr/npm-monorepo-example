@@ -17,8 +17,29 @@ spec:
       containers:
         - name: foo-1
           image: foo-1:latest
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "3000"
+            - name: FOO_2_URL
+              value: "http://foo-2.foo.svc.cluster.local"
+            - name: FOO_3_URL
+              value: "http://foo-3.foo.svc.cluster.local"
           imagePullPolicy: Never
           resources: { limits: { cpu: 300m, memory: 512Mi } }
           ports:
             - containerPort: 3000
               name: foo-1-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foo-1
+spec:
+  type: NodePort
+  selector:
+    app: foo-1
+  ports:
+    - port: 80
+      targetPort: 3000
