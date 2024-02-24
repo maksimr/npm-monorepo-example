@@ -6,6 +6,10 @@ services:
     build:
       context: .
       dockerfile: ./services/foo-1/Dockerfile
+    environment:
+      - NODE_ENV=development
+      - FOO_2_URL=http://foo2:3000
+      - FOO_3_URL=http://foo3:3000
     restart: always
     ports:
       - 3001:3000
