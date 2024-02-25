@@ -1,0 +1,32 @@
+name: Minikube Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build and deploy to minikube
+    steps:
+    - uses: actions/checkout@v2
+    - name: Start minikube
+      uses: medyagh/setup-minikube@master
+    - name: Try the cluster
+      run: kubectl get pods -A
+    - name: Deploy to minikube
+      run: |
+        export SHELL=/bin/bash
+        ./scripts/minikube/deploy.sh
+    - name: Test service URLs
+      run: |
+        minikube tunnel &
+        minikube kubectl config set-context -- --current --namespace=foo
+        minikube kubectl -- get pods
+        minikube kubectl -- wait pods -l loadbalancer-type=external --for condition=Ready --timeout=5s
+        while : ; do
+          LOAD_BALANCER_IP=$(minikube kubectl -- get svc external-loadbalancer -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          [ -n "$LOAD_BALANCER_IP" ] && break
+          sleep 1
+        done
+        curl http://$LOAD_BALANCER_IP:3001/test
+        curl http://$LOAD_BALANCER_IP:3002/test
+        curl http://$LOAD_BALANCER_IP:3003/test
+        curl http://$LOAD_BALANCER_IP:3003/proxy/foo-2
+        kill %1
