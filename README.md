@@ -16,12 +16,6 @@ To build specific packages, you can use the following command:
 npm run build -w <package-name>
 ```
 
-If you want to build specific packages and their dependencies, you can use the following command:
-
-```bash
-npm run build:all -w <package-name>
-```
-
 If you want to build all packages, you can use the following command:
 
 ```bash
@@ -40,14 +34,7 @@ If you want to rebuild a service when a service's files change,
 you can use the following after running the `dev` command:
 
 ```bash
-npm run build -w <package-name> -- --watch
-```
-
-If you want to rebuild a service including its dependencies on a change,
-you can use the following after running the `dev` command:
-
-```bash
-npm run build:all -w <package-name> -- --watch
+npm run build --watch -w <package-name>
 ```
 
 ## 🚀 Deployment
