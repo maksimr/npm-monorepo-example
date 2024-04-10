@@ -10,7 +10,16 @@
   "wireit": {
     "build": {
       "command": "tsc",
-      "dependencies": ["../foo-2:build"]
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist/**"
+      ],
+      "dependencies": [
+        "../foo-2:build"
+      ]
     }
   },
   "keywords": [],
