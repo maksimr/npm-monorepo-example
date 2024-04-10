@@ -3,23 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:all": "npx scripts-npm-run build -w $npm_package_name --",
-    "build": "tsc",
+    "build": "wireit",
     "dev": "npm run start",
-    "prestart": "npm run build:all",
+    "prestart": "npm run build",
     "start": "node --watch dist/index.js",
-    "pretest": "npm run build:all",
+    "pretest": "npm run build",
     "test": "node --test **/*.test.js",
     "test:types": "tsc --noEmit",
     "test:all": "npm run test:types && npm run test"
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc",
+      "dependencies": ["../../packages/foo-1:build"]
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@packages/scripts": "^1.0.0",
     "@types/node": "^20.11.17",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "wireit": "^0.14.4"
   },
   "description": "",
   "dependencies": {
