@@ -1,8 +1,0 @@
-{
-  "name": "@packages/scripts",
-  "version": "1.0.0",
-  "bin": {
-    "scripts-npm-run": "./bin/scripts-npm-run.sh"
-  },
-  "private": true
-}

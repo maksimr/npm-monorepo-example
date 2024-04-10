@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "wireit",
     "test:types": "tsc --noEmit",
     "test:all": "npm run test:types"
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc",
+      "dependencies": ["../foo-2:build"]
+    }
   },
   "keywords": [],
   "author": "",
@@ -15,7 +21,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "wireit": "^0.14.4"
   },
   "description": "",
   "dependencies": {
