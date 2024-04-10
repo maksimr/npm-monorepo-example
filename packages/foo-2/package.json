@@ -3,9 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "wireit",
     "test:types": "tsc --noEmit",
     "test:all": "npm run test:types"
+  },
+  "wireit": {
+    "build": {
+      "command": "tsc",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist/**"
+      ]
+    }
   },
   "keywords": [],
   "author": "",

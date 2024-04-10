@@ -4,5 +4,8 @@
   "workspaces": [
     "services/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "wireit": "^0.14.4"
+  }
 }
