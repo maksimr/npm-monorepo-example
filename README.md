@@ -1,5 +1,7 @@
 # npm monorepo template
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/maksimr/npm-monorepo-example?quickstart=1)
+
 This is a template for a monorepo using NPM workspaces, Docker and TypeScript. This describes how to build, develop, deploy and test the nodejs services
 
 ## 🏗️ Build
