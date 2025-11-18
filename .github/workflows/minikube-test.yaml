@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: build and deploy to minikube
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Start minikube
       uses: medyagh/setup-minikube@master
     - name: Try the cluster
